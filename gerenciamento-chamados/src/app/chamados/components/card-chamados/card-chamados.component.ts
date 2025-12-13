@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { ChipComponent } from '../../../shared/components/chip/chip.component';
 import { ButtonComponent } from "../../../shared/components/button/button.component";
+import { ChipComponent } from '../../../shared/components/chip/chip.component';
 
 @Component({
   selector: 'app-card-chamados',
@@ -12,8 +12,8 @@ import { ButtonComponent } from "../../../shared/components/button/button.compon
   imports: [
     CardModule,
     ButtonModule,
-    ChipComponent,
     ButtonComponent,
+    ChipComponent,
 ],
 })
 export class CardChamadosComponent {
