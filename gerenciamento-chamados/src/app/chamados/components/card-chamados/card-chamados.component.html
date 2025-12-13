@@ -14,10 +14,22 @@
     </p>
     <ng-template #footer>
       <div class="flex justify-between items-center gap-4 mt-1">
-        <p-chip label="Categoria" icon="pi pi-tag"/>
-        <div class="flex gap-4">
-          <i class="pi pi-pencil"></i>
-          <i class="pi pi-trash"></i>
+        <app-chip></app-chip>
+        <div class="botoes-acoes-card flex">
+          <app-button
+            icon="pi pi-pencil"
+            [text]="true"
+            [rounded]="true"
+            severity="secondary"
+            styleClass="w-full"
+          />
+          <app-button
+            icon="pi pi-trash"
+            [text]="true"
+            [rounded]="true"
+            severity="danger"
+            styleClass="w-full"
+          />
         </div>
       </div>
     </ng-template>
