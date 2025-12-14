@@ -16,7 +16,7 @@ import { BadgeModule } from 'primeng/badge';
 })
 export class BlocosChamadosComponent {
 // Auxílio ChatGPT para deixar o Accordion um componente genérico
-// Auxílio ChatGPT para correção de erro de o accordion não aparecer os cards 
+// Auxílio ChatGPT para correção de erro de o accordion não aparecer os cards
   @Input() title!: string;
   @Input() badge?: number | string;
   @Input() severity:
@@ -26,15 +26,21 @@ export class BlocosChamadosComponent {
   | 'danger'
   | 'contrast' = 'success';
 
-  public set expanded(value: boolean) {
+  @Input() set expanded(value: boolean) {
     this._expanded = value;
-    this.active = value ? '0' : null;
+    this._active = value ? '0' : null;
   }
   public get expanded(): boolean {
     return this._expanded;
   }
 
-  public _expanded = false;
+  private _expanded = false;
+  private _active: string | null = null;
 
-  active: string | null = null;
+  public get active(): string | null {
+    return this._active;
+  }
+  public set active(value: string | null) {
+    this._active = value;
+  }
 }

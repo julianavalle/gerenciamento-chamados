@@ -31,9 +31,15 @@ export class PageGerenciamentoChamadosComponent {
     private toastService: ToastService
   ) {}
 
-  chamadosNaoAtendidos = computed(() => this.chamadosService.byStatus('ATENDER'));
-  chamadosEmAndamento = computed(() => this.chamadosService.byStatus('ANDAMENTO'));
-  chamadosFinalizados = computed(() => this.chamadosService.byStatus('FINALIZADO'));
+  public chamadosNaoAtendidos = computed(() =>
+    this.chamadosService.chamados().filter(c => c.status === 'ATENDER')
+  );
+  public chamadosEmAndamento = computed(() =>
+    this.chamadosService.chamados().filter(c => c.status === 'ANDAMENTO')
+  );
+  public chamadosFinalizados = computed(() =>
+    this.chamadosService.chamados().filter(c => c.status === 'FINALIZADO')
+  );
 
   public criarNovoChamado(): void {
     this.router.navigate(['/chamados/novo']);
