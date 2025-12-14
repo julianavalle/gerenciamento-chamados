@@ -14,7 +14,7 @@ import { BadgeModule } from 'primeng/badge';
     BadgeModule,
   ],
 })
-export class BlocosChamadosComponent implements OnChanges{
+export class BlocosChamadosComponent implements OnInit, OnChanges {
 // Auxílio ChatGPT para deixar o Accordion um componente genérico
   @Input() title!: string;
   @Input() expanded = false;
@@ -28,6 +28,10 @@ export class BlocosChamadosComponent implements OnChanges{
 
 
   active: string[] = [];
+
+  public ngOnInit() {
+    this.active = this.expanded ? ['0'] : [];
+  }
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes['expanded']) {

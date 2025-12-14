@@ -83,4 +83,8 @@ export class FormChamadosComponent implements OnChanges {
 
     this.submitForm.emit(value);
   }
+
+  public isFormDirty(): boolean {
+    return this.chamadoForm.dirty;
+  }
 }

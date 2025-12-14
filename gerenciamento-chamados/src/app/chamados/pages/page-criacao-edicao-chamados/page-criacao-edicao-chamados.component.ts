@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormChamadosComponent } from "../../components/form-chamados/form-chamados.component";
 import { IChamado, TChamadoDraft, TFormMode } from '../../../shared/models/chamado.model';
 import { ChamadosMockService } from '../../../services/chamados-mock.service';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-page-criacao-edicao-chamados',
@@ -10,17 +12,21 @@ import { ChamadosMockService } from '../../../services/chamados-mock.service';
   styleUrl: './page-criacao-edicao-chamados.component.scss',
   standalone: true,
   imports: [
-    FormChamadosComponent
+    FormChamadosComponent,
+    ConfirmDialogComponent
   ],
 })
 export class PageCriacaoEdicaoChamadosComponent implements OnInit {
   mode: TFormMode = 'CREATE';
   chamadoInicial: IChamado | null = null;
 
+  @ViewChild(FormChamadosComponent) formComponent!: FormChamadosComponent;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private chamadosService: ChamadosMockService
+    private chamadosService: ChamadosMockService,
+    private confirmDialogService: ConfirmDialogService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +48,19 @@ export class PageCriacaoEdicaoChamadosComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.voltarParaListagem();
+    if (this.formComponent.isFormDirty()) {
+      this.confirmDialogService.confirm({
+        header: 'Descartar preenchimento?',
+        message: 'Tem certeza que deseja descartar o preenchimento?',
+        acceptLabel: 'Sim, descartar',
+        rejectLabel: 'Não',
+        onAccept: () => {
+          this.voltarParaListagem();
+        }
+      });
+    } else {
+      this.voltarParaListagem();
+    }
   }
 
   private voltarParaListagem(): void {
