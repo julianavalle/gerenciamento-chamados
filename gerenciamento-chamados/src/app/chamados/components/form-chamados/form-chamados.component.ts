@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
 import { IChamado, IChamadoFormGroup, TChamadoDraft, TFormMode, TStatusChamado } from '../../../shared/models/chamado.model';
+import { ButtonComponent } from "../../../shared/components/button/button.component";
+import { CardModule } from "primeng/card";
+import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-form-chamados',
@@ -10,8 +15,13 @@ import { IChamado, IChamadoFormGroup, TChamadoDraft, TFormMode, TStatusChamado }
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    CardModule,
+    ButtonComponent,
+    InputTextModule,
+    TextareaModule,
+    FloatLabelModule,
+],
 })
 export class FormChamadosComponent implements OnChanges {
 
@@ -27,21 +37,19 @@ export class FormChamadosComponent implements OnChanges {
     { label: 'Finalizados', value: 'FINALIZADO' as TStatusChamado },
   ];
 
-   public chamadoForm: FormGroup<IChamadoFormGroup> = new FormGroup<IChamadoFormGroup>({
+  public chamadoForm: FormGroup<IChamadoFormGroup> = new FormGroup<IChamadoFormGroup>({
     titulo: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(3)] }),
-    descricao: new FormControl('', { nonNullable: true }),
-    categoria: new FormControl('Geral', { nonNullable: true }),
+    descricao: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] }),
+    categoria: new FormControl('', { nonNullable: true }),
     status: new FormControl('ATENDER', { nonNullable: true, validators: [Validators.required] }),
   });
 
-  constructor(private fb: FormBuilder) {}
-
-   ngOnChanges(): void {
+  public ngOnChanges(): void {
     if (this.mode === 'EDIT' && this.initial) {
       this.chamadoForm.reset({
         titulo: this.initial.titulo ?? '',
         descricao: this.initial.descricao ?? '',
-        categoria: this.initial.categoria ?? 'Geral',
+        categoria: this.initial.categoria ?? '',
         status: this.initial.status,
       });
       return;
@@ -57,15 +65,15 @@ export class FormChamadosComponent implements OnChanges {
     }
   }
 
-  get title(): string {
+  public get title(): string {
     return this.mode === 'EDIT' ? 'Editar chamado' : 'Novo chamado';
   }
 
-  get submitLabel(): string {
+  public get submitLabel(): string {
     return this.mode === 'EDIT' ? 'Salvar alterações' : 'Criar chamado';
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.chamadoForm.invalid) {
       this.chamadoForm.markAllAsTouched();
       return;

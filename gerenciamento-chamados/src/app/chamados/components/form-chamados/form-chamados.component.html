@@ -1,0 +1,80 @@
+<div class="form-chamados flex justify-center mt-2 mb-2 mx-6">
+  <p-card class="w-full max-w-2xl">
+    <div class="form-header flex gap-4 items-center mb-6">
+      <span
+        class="flex items-center justify-center w-12 h-12 rounded-full text-white text-xl"
+        [ngClass]="mode === 'EDIT' ? 'bg-blue-500' : 'bg-green-500'"
+      >
+        <i class="pi" [ngClass]="mode === 'EDIT' ? 'pi-pencil' : 'pi-plus'"></i>
+      </span>
+
+      <div class="header-text">
+        <div class="header-title text-lg font-bold">
+          {{ mode === 'EDIT' ? 'Editar chamado' : 'Criar chamado' }}
+        </div>
+
+        @if (mode === 'EDIT' && initial) {
+          <div class="header-subtitle">Chamado #{{ initial.id }}</div>
+        }
+      </div>
+
+    </div>
+
+    <form [formGroup]="chamadoForm" (ngSubmit)="onSubmit()" class="form-body flex flex-col gap-4">
+      <div class="field flex flex-col gap-2">
+        <p-floatlabel variant="on">
+          <input pInputText id="titulo" formControlName="titulo" class="w-full" />
+          <label for="titulo">Título <span class="text-red-500">*</span></label>
+        </p-floatlabel>
+
+        @if (chamadoForm.controls.titulo.touched && chamadoForm.controls.titulo.invalid) {
+          <small class="text-red-500">Título é obrigatório (mín. 3 caracteres).</small>
+        }
+      </div>
+
+      <div class="field flex flex-col gap-2">
+        <p-floatlabel variant="on">
+          <textarea
+            pInputTextarea
+            id="descricao"
+            rows="4"
+            formControlName="descricao"
+            class="w-full"
+            style="resize: none"
+          ></textarea>
+          <label for="descricao">Descrição <span class="text-red-500">*</span></label>
+        </p-floatlabel>
+
+        @if (chamadoForm.controls.descricao.touched && chamadoForm.controls.descricao.invalid) {
+          <small class="text-red-500">Descrição é obrigatória (mín 10 caracteres).</small>
+        }
+      </div>
+
+      <div class="field flex flex-col gap-2">
+        <p-floatlabel variant="on">
+          <input pInputText id="categoria" formControlName="categoria" class="w-full" />
+          <label for="categoria">Categoria</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="flex gap-2 justify-end">
+        <app-button
+          label="Cancelar"
+          icon="pi pi-times"
+          severity="danger"
+          [outlined]="true"
+          type="button"
+          (click)="cancel.emit()"
+        />
+
+        <app-button
+          [label]="mode === 'EDIT' ? 'Salvar' : 'Criar'"
+          icon="pi pi-check"
+          severity="success"
+          type="submit"
+          [disabled]="chamadoForm.invalid"
+        />
+      </div>
+    </form>
+  </p-card>
+</div>
