@@ -3,3 +3,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+
+  background: var(--p-surface-ground, var(--surface-ground, #F3F3F3));
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+  background: inherit;
+}
