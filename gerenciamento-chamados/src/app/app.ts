@@ -1,17 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { PageGerenciamentoChamadosComponent } from "./chamados/pages/page-gerenciamento-chamados/page-gerenciamento-chamados.component";
-import { PageCriacaoEdicaoChamadosComponent } from "./chamados/pages/page-criacao-edicao-chamados/page-criacao-edicao-chamados.component";
+import { RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [
-    PageGerenciamentoChamadosComponent,
-    PageCriacaoEdicaoChamadosComponent
-],
+  imports: [RouterOutlet],
 })
-
 export class App {
   protected readonly title = signal('gerenciamento-chamados');
-  
 }

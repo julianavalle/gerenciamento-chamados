@@ -1,1 +1,6 @@
-<app-form-chamados></app-form-chamados>
+<app-form-chamados
+  [mode]="mode"
+  [initial]="chamadoInicial"
+  (submitForm)="onSubmit($event)"
+  (cancel)="onCancel()"
+></app-form-chamados>

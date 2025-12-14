@@ -8,38 +8,51 @@
     icon="pi pi-plus"
     severity="help"
     class="botao-novo-chamado px-6 pt-3 pb-0"
+    (click)="criarNovoChamado()"
   />
 
   <app-blocos-chamados
     title="Não atendidos"
-    [badge]="chamadosNaoAtendidos.length"
+    [badge]="chamadosNaoAtendidos().length"
     severity="danger"
     [expanded]="true"
   >
-    @for (chamado of chamadosNaoAtendidos; track chamado.id) {
-      <app-card-chamados [chamado]="chamado" />
+    @for (chamado of chamadosNaoAtendidos(); track chamado.id) {
+      <app-card-chamados
+        [chamado]="chamado"
+        (edit)="editarChamado($event)"
+        (remove)="removerChamado($event)"
+      />
     }
   </app-blocos-chamados>
 
   <app-blocos-chamados
     title="Em andamento"
-    [badge]="chamadosEmAndamento.length"
+    [badge]="chamadosEmAndamento().length"
     severity="warn"
     [expanded]="true"
   >
-    @for (chamado of chamadosEmAndamento; track chamado.id) {
-      <app-card-chamados [chamado]='chamado' />
+    @for (chamado of chamadosEmAndamento(); track chamado.id) {
+      <app-card-chamados
+        [chamado]="chamado"
+        (edit)="editarChamado($event)"
+        (remove)="removerChamado($event)"
+      />
     }
   </app-blocos-chamados>
 
   <app-blocos-chamados
     title="Finalizados"
-    [badge]="chamadosFinalizados.length"
+    [badge]="chamadosFinalizados().length"
     severity="success"
     [expanded]="true"
   >
-    @for (chamado of chamadosFinalizados; track chamado.id) {
-      <app-card-chamados [chamado]='chamado' />
+    @for (chamado of chamadosFinalizados(); track chamado.id) {
+      <app-card-chamados
+        [chamado]="chamado"
+        (edit)="editarChamado($event)"
+        (remove)="removerChamado($event)"
+      />
     }
   </app-blocos-chamados>
 

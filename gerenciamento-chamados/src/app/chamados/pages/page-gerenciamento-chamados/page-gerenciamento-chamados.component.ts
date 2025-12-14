@@ -1,15 +1,17 @@
 import { IChamado } from '../../../shared/models/chamado.model';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { Component, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { BlocosChamadosComponent } from '../../components/blocos-chamados/blocos-chamados.component';
 import { CardChamadosComponent } from '../../components/card-chamados/card-chamados.component';
+import { ChamadosMockService } from '../../../services/chamados-mock.service';
 
 @Component({
   selector: 'app-page-gerenciamento-chamados',
   templateUrl: './page-gerenciamento-chamados.component.html',
   styleUrl: './page-gerenciamento-chamados.component.scss',
-  standalone: true, 
+  standalone: true,
   imports: [
     CommonModule,
     ButtonComponent,
@@ -18,17 +20,24 @@ import { CardChamadosComponent } from '../../components/card-chamados/card-chama
   ],
 })
 export class PageGerenciamentoChamadosComponent {
-  chamadosNaoAtendidos: IChamado[] = [
-    { id: 1, titulo: 'Chamado 1', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'ATENDER'},
-    { id: 2, titulo: 'Chamado 2', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'ATENDER' }
-  ];
+  constructor(
+    private router: Router,
+    private chamadosService: ChamadosMockService
+  ) {}
 
-  chamadosEmAndamento: IChamado[] = [
-    { id: 3, titulo: 'Chamado 3', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'ANDAMENTO' }
-  ];
+  chamadosNaoAtendidos = computed(() => this.chamadosService.byStatus('ATENDER'));
+  chamadosEmAndamento = computed(() => this.chamadosService.byStatus('ANDAMENTO'));
+  chamadosFinalizados = computed(() => this.chamadosService.byStatus('FINALIZADO'));
 
-  chamadosFinalizados: IChamado[] = [
-    { id: 4, titulo: 'Chamado 4', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'FINALIZADO' }
-  ];
+  criarNovoChamado(): void {
+    this.router.navigate(['/chamados/novo']);
+  }
 
+  editarChamado(chamado: IChamado): void {
+    this.router.navigate(['/chamados', chamado.id, 'editar']);
+  }
+
+  removerChamado(id: number): void {
+    this.chamadosService.remove(id);
+  }
 }
