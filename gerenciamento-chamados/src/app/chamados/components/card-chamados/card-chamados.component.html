@@ -11,10 +11,10 @@
     <p>
       {{ chamado.descricao }}
     </p>
-    <ng-template #footer>
+    <ng-template pTemplate="footer">
       <div class="flex justify-between items-center gap-4 mt-1">
         <app-chip
-          label="Categoria"
+          [label]="chamado.categoria"
         />
         <div class="botoes-acoes-card flex">
           <app-button
@@ -23,6 +23,7 @@
             [rounded]="true"
             severity="secondary"
             styleClass="w-full"
+            (click)="edit.emit(chamado)"
           />
           <app-button
             icon="pi pi-trash"
@@ -30,6 +31,7 @@
             [rounded]="true"
             severity="danger"
             styleClass="w-full"
+            (click)="remove.emit(chamado.id)"
           />
         </div>
       </div>

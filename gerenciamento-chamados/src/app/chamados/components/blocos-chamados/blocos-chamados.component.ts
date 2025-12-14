@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { BadgeModule } from 'primeng/badge';
 
@@ -26,10 +26,12 @@ export class BlocosChamadosComponent implements OnChanges{
   | 'danger'
   | 'contrast' = 'success';
 
-  
-  active: string | null = null;
 
-  ngOnChanges(_: SimpleChanges) {
-    this.active = this.expanded ? '0' : null;
+  active: string[] = [];
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['expanded']) {
+      this.active = this.expanded ? ['0'] : [];
+    }
   }
 }
