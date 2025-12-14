@@ -1,3 +1,4 @@
+import { Chamado } from '../../models/chamado.model';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -17,17 +18,17 @@ import { CardChamadosComponent } from '../../components/card-chamados/card-chama
   ],
 })
 export class PageGerenciamentoChamadosComponent {
-  chamadosNaoAtendidos = [
-    { id: 1, titulo: 'Chamado 1', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.'},
-    { id: 2, titulo: 'Chamado 2', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.' }
+  chamadosNaoAtendidos: Chamado[] = [
+    { id: 1, titulo: 'Chamado 1', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'ATENDER'},
+    { id: 2, titulo: 'Chamado 2', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'ATENDER' }
   ];
 
-  chamadosEmAndamento = [
-    { id: 3, titulo: 'Chamado 3', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.' }
+  chamadosEmAndamento: Chamado[] = [
+    { id: 3, titulo: 'Chamado 3', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'ANDAMENTO' }
   ];
 
-  chamadosFinalizados = [
-    { id: 4, titulo: 'Chamado 4', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.' }
+  chamadosFinalizados: Chamado[] = [
+    { id: 4, titulo: 'Chamado 4', descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, leo non feugiat dignissim, libero ex commodo nisl, a lacinia est risus vehicula.', status: 'FINALIZADO' }
   ];
 
 }
