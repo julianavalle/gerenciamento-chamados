@@ -1,0 +1,24 @@
+<div class="bloco-chamados mt-2 mb-2 mx-6">
+  <p-accordion [(value)]="active">
+    <p-accordionpanel value="0">
+      <p-accordionheader>
+        <div>
+          <span class="font-semibold">{{ title }}</span>
+          <p-badge
+            *ngIf="badge !== undefined && badge !== null"
+            [value]="badge"
+            [severity]="severity"
+            severity="info"
+            class="ml-2"
+          />
+        </div>
+      </p-accordionheader>
+  
+      <p-accordioncontent>
+        <div class="flex flex-col gap-3">
+          <ng-content></ng-content>
+        </div>
+      </p-accordioncontent>
+    </p-accordionpanel>
+  </p-accordion>
+</div>

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ButtonComponent } from "../../../shared/components/button/button.component";
@@ -17,4 +17,9 @@ import { ChipComponent } from '../../../shared/components/chip/chip.component';
 ],
 })
 export class CardChamadosComponent {
+  @Input() chamado!: {
+    id: number;
+    titulo: string;
+    descricao: string;
+  };
 }

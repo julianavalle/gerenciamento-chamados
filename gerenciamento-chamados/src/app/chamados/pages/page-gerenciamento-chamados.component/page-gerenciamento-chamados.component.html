@@ -1,0 +1,47 @@
+<div class="page-chamados min-h-screen flex flex-col">
+  <div class="flex items-center justify-center pt-8">
+    <span class="text-lg">GERENCIAMENTO DE CHAMADOS</span>
+  </div>
+
+  <app-button
+    label="Novo chamado"
+    icon="pi pi-plus"
+    severity="help"
+    class="botao-novo-chamado px-6 pt-3 pb-0"
+  />
+
+  <app-blocos-chamados
+    title="Não atendidos"
+    [badge]="chamadosNaoAtendidos.length"
+    severity="danger"
+    [expanded]="true"
+  >
+    @for (chamado of chamadosNaoAtendidos; track chamado.id) {
+      <app-card-chamados [chamado]="chamado" />
+    }
+  </app-blocos-chamados>
+
+  <app-blocos-chamados
+    title="Em andamento"
+    [badge]="chamadosEmAndamento.length"
+    severity="warn"
+    [expanded]="true"
+  >
+    @for (chamado of chamadosEmAndamento; track chamado.id) {
+      <app-card-chamados [chamado]='chamado' />
+    }
+  </app-blocos-chamados>
+
+  <app-blocos-chamados
+    title="Finalizados"
+    [badge]="chamadosFinalizados.length"
+    severity="success"
+    [expanded]="true"
+  >
+    @for (chamado of chamadosFinalizados; track chamado.id) {
+      <app-card-chamados [chamado]='chamado' />
+    }
+  </app-blocos-chamados>
+
+</div>
+
