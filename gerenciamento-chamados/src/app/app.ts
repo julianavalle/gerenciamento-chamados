@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { PageGerenciamentoChamadosComponent } from "./chamados/pages/page-gerenciamento-chamados.component/page-gerenciamento-chamados.component";
+import { PageGerenciamentoChamadosComponent } from "./chamados/pages/page-gerenciamento-chamados/page-gerenciamento-chamados.component";
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
