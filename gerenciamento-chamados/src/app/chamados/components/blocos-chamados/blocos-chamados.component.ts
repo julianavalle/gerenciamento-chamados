@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { BadgeModule } from 'primeng/badge';
 
@@ -14,10 +14,10 @@ import { BadgeModule } from 'primeng/badge';
     BadgeModule,
   ],
 })
-export class BlocosChamadosComponent implements OnInit, OnChanges {
+export class BlocosChamadosComponent {
 // Auxílio ChatGPT para deixar o Accordion um componente genérico
+// Auxílio ChatGPT para correção de erro de o accordion não aparecer os cards 
   @Input() title!: string;
-  @Input() expanded = false;
   @Input() badge?: number | string;
   @Input() severity:
   | 'success'
@@ -26,16 +26,15 @@ export class BlocosChamadosComponent implements OnInit, OnChanges {
   | 'danger'
   | 'contrast' = 'success';
 
-
-  active: string[] = [];
-
-  public ngOnInit() {
-    this.active = this.expanded ? ['0'] : [];
+  public set expanded(value: boolean) {
+    this._expanded = value;
+    this.active = value ? '0' : null;
+  }
+  public get expanded(): boolean {
+    return this._expanded;
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['expanded']) {
-      this.active = this.expanded ? ['0'] : [];
-    }
-  }
+  public _expanded = false;
+
+  active: string | null = null;
 }
