@@ -74,6 +74,7 @@ export class FormChamadosComponent implements OnChanges {
   }
 
   public onSubmit(): void {
+
     if (this.chamadoForm.invalid) {
       this.chamadoForm.markAllAsTouched();
       return;

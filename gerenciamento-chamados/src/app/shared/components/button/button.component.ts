@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ButtonModule } from "primeng/button";
 
 @Component({
@@ -18,6 +18,8 @@ export class ButtonComponent {
   @Input() rounded = false;
   @Input() outlined = false;
   @Input() disabled = false;
+
+  @Output() click = new EventEmitter<void>();
 
   // Auxílio do ChatGPT
   @Input() severity:

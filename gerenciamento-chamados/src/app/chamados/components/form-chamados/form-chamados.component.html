@@ -71,8 +71,8 @@
           [label]="mode === 'EDIT' ? 'Salvar' : 'Criar'"
           icon="pi pi-check"
           severity="success"
-          type="submit"
           [disabled]="chamadoForm.invalid"
+          (click)="onSubmit()"
         />
       </div>
     </form>

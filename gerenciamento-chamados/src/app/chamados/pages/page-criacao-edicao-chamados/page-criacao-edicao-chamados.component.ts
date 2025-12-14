@@ -39,11 +39,13 @@ export class PageCriacaoEdicaoChamadosComponent implements OnInit {
   }
 
   onSubmit(chamado: TChamadoDraft): void {
+
     if (this.mode === 'CREATE') {
       this.chamadosService.create(chamado);
     } else if (this.mode === 'EDIT' && this.chamadoInicial) {
       this.chamadosService.update(this.chamadoInicial.id, chamado);
     }
+
     this.voltarParaListagem();
   }
 
