@@ -13,56 +13,59 @@
     (click)="criarNovoChamado()"
   />
 
-  <app-blocos-chamados
-    title="Não atendidos"
-    [badge]="chamadosNaoAtendidos().length"
-    severity="danger"
-    [expanded]="true"
-    (chamadoDropped)="handleDrop($event, 'ATENDER')"
-  >
-    @for (chamado of chamadosNaoAtendidos(); track chamado.id) {
-      <app-card-chamados
-        [chamado]="chamado"
-        (edit)="editarChamado($event)"
-        (remove)="removerChamado($event)"
-        (moveToStatus)="handleMoveToStatus(chamado, $event)"
-      />
-    }
-  </app-blocos-chamados>
+  <div class="px-6 py-4 grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+      <app-blocos-chamados
+      title="Não atendidos"
+      [badge]="chamadosNaoAtendidos().length"
+      severity="danger"
+      [expanded]="true"
+      (chamadoDropped)="handleDrop($event, 'ATENDER')"
+    >
+      @for (chamado of chamadosNaoAtendidos(); track chamado.id) {
+        <app-card-chamados
+          [chamado]="chamado"
+          (edit)="editarChamado($event)"
+          (remove)="removerChamado($event)"
+          (moveToStatus)="handleMoveToStatus(chamado, $event)"
+        />
+      }
+    </app-blocos-chamados>
 
-  <app-blocos-chamados
-    title="Em andamento"
-    [badge]="chamadosEmAndamento().length"
-    severity="warn"
-    [expanded]="true"
-    (chamadoDropped)="handleDrop($event, 'ANDAMENTO')"
-  >
-    @for (chamado of chamadosEmAndamento(); track chamado.id) {
-      <app-card-chamados
-        [chamado]="chamado"
-        (edit)="editarChamado($event)"
-        (remove)="removerChamado($event)"
-        (moveToStatus)="handleMoveToStatus(chamado, $event)"
-      />
-    }
-  </app-blocos-chamados>
+    <app-blocos-chamados
+      title="Em andamento"
+      [badge]="chamadosEmAndamento().length"
+      severity="warn"
+      [expanded]="true"
+      (chamadoDropped)="handleDrop($event, 'ANDAMENTO')"
+    >
+      @for (chamado of chamadosEmAndamento(); track chamado.id) {
+        <app-card-chamados
+          [chamado]="chamado"
+          (edit)="editarChamado($event)"
+          (remove)="removerChamado($event)"
+          (moveToStatus)="handleMoveToStatus(chamado, $event)"
+        />
+      }
+    </app-blocos-chamados>
 
-  <app-blocos-chamados
-    title="Finalizados"
-    [badge]="chamadosFinalizados().length"
-    severity="success"
-    [expanded]="true"
-    (chamadoDropped)="handleDrop($event, 'FINALIZADO')"
-  >
-    @for (chamado of chamadosFinalizados(); track chamado.id) {
-      <app-card-chamados
-        [chamado]="chamado"
-        (edit)="editarChamado($event)"
-        (remove)="removerChamado($event)"
-        (moveToStatus)="handleMoveToStatus(chamado, $event)"
-      />
-    }
-  </app-blocos-chamados>
+    <app-blocos-chamados
+      title="Finalizados"
+      [badge]="chamadosFinalizados().length"
+      severity="success"
+      [expanded]="true"
+      (chamadoDropped)="handleDrop($event, 'FINALIZADO')"
+    >
+      @for (chamado of chamadosFinalizados(); track chamado.id) {
+        <app-card-chamados
+          [chamado]="chamado"
+          (edit)="editarChamado($event)"
+          (remove)="removerChamado($event)"
+          (moveToStatus)="handleMoveToStatus(chamado, $event)"
+        />
+      }
+    </app-blocos-chamados>
+  </div>
+
 
 </div>
 
