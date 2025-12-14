@@ -18,12 +18,14 @@
     [badge]="chamadosNaoAtendidos().length"
     severity="danger"
     [expanded]="true"
+    (chamadoDropped)="handleDrop($event, 'ATENDER')"
   >
     @for (chamado of chamadosNaoAtendidos(); track chamado.id) {
       <app-card-chamados
         [chamado]="chamado"
         (edit)="editarChamado($event)"
         (remove)="removerChamado($event)"
+        (moveToStatus)="handleMoveToStatus(chamado, $event)"
       />
     }
   </app-blocos-chamados>
@@ -33,12 +35,14 @@
     [badge]="chamadosEmAndamento().length"
     severity="warn"
     [expanded]="true"
+    (chamadoDropped)="handleDrop($event, 'ANDAMENTO')"
   >
     @for (chamado of chamadosEmAndamento(); track chamado.id) {
       <app-card-chamados
         [chamado]="chamado"
         (edit)="editarChamado($event)"
         (remove)="removerChamado($event)"
+        (moveToStatus)="handleMoveToStatus(chamado, $event)"
       />
     }
   </app-blocos-chamados>
@@ -48,12 +52,14 @@
     [badge]="chamadosFinalizados().length"
     severity="success"
     [expanded]="true"
+    (chamadoDropped)="handleDrop($event, 'FINALIZADO')"
   >
     @for (chamado of chamadosFinalizados(); track chamado.id) {
       <app-card-chamados
         [chamado]="chamado"
         (edit)="editarChamado($event)"
         (remove)="removerChamado($event)"
+        (moveToStatus)="handleMoveToStatus(chamado, $event)"
       />
     }
   </app-blocos-chamados>

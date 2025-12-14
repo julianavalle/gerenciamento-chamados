@@ -14,7 +14,9 @@
       </p-accordionheader>
 
       <p-accordioncontent>
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3 drop-zone"
+             pDroppable="chamado"
+             (onDrop)="onDrop($event)">
           <ng-content></ng-content>
         </div>
       </p-accordioncontent>

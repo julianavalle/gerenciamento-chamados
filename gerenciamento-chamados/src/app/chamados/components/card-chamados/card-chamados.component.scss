@@ -2,3 +2,21 @@
   font-size: 12px;
   color: #7C7C7C;
 }
+
+.card-chamados {
+  cursor: move;
+  transition: opacity 0.2s ease;
+
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+// Auxílio do ChatGPT - Força o menu a abrir para a esquerda
+::ng-deep .menu-align-right {
+  transform-origin: top right !important;
+
+  &.p-menu-overlay {
+    transform: translateX(-100%) translateX(40px) !important;
+  }
+}

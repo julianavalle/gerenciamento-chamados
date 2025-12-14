@@ -1,4 +1,4 @@
-import { IChamado } from '../../../shared/models/chamado.model';
+import { IChamado, TStatusChamado } from '../../../shared/models/chamado.model';
 import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -60,5 +60,49 @@ export class PageGerenciamentoChamadosComponent {
         this.toastService.success('Chamado excluído com sucesso!');
       }
     });
+  }
+
+  public handleDrop(event: DragEvent, targetStatus: TStatusChamado): void {
+    const chamadoId = event.dataTransfer?.getData('chamadoId');
+    if (!chamadoId) return;
+
+    const chamado = this.chamadosService.getById(Number(chamadoId));
+    if (!chamado) return;
+
+    if (chamado.status === targetStatus) {
+      return;
+    }
+
+    this.chamadosService.update(chamado.id, { status: targetStatus });
+
+    const statusLabels: Record<TStatusChamado, string> = {
+      'ATENDER': 'Não atendidos',
+      'ANDAMENTO': 'Em andamento',
+      'FINALIZADO': 'Finalizados'
+    };
+
+    this.toastService.success(
+      'Status atualizado!',
+      `Chamado #${chamado.id} movido para ${statusLabels[targetStatus]}`
+    );
+  }
+
+  public handleMoveToStatus(chamado: IChamado, targetStatus: TStatusChamado): void {
+    if (chamado.status === targetStatus) {
+      return;
+    }
+
+    this.chamadosService.update(chamado.id, { status: targetStatus });
+
+    const statusLabels: Record<TStatusChamado, string> = {
+      'ATENDER': 'Não atendidos',
+      'ANDAMENTO': 'Em andamento',
+      'FINALIZADO': 'Finalizados'
+    };
+
+    this.toastService.success(
+      'Status atualizado!',
+      `Chamado #${chamado.id} movido para ${statusLabels[targetStatus]}`
+    );
   }
 }

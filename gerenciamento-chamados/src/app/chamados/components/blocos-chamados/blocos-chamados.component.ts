@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { BadgeModule } from 'primeng/badge';
+import { DragDropModule } from 'primeng/dragdrop';
 
 @Component({
   selector: 'app-blocos-chamados',
@@ -12,6 +13,7 @@ import { BadgeModule } from 'primeng/badge';
     CommonModule,
     AccordionModule,
     BadgeModule,
+    DragDropModule,
   ],
 })
 export class BlocosChamadosComponent {
@@ -25,6 +27,8 @@ export class BlocosChamadosComponent {
   | 'warn'
   | 'danger'
   | 'contrast' = 'success';
+
+  @Output() chamadoDropped = new EventEmitter<DragEvent>();
 
   @Input() set expanded(value: boolean) {
     this._expanded = value;
@@ -42,5 +46,9 @@ export class BlocosChamadosComponent {
   }
   public set active(value: string | null) {
     this._active = value;
+  }
+
+  public onDrop(event: DragEvent): void {
+    this.chamadoDropped.emit(event);
   }
 }
