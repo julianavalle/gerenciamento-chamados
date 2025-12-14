@@ -7,7 +7,6 @@ import { MenuItem } from 'primeng/api';
 import { ButtonComponent } from "../../../shared/components/button/button.component";
 import { ChipComponent } from '../../../shared/components/chip/chip.component';
 import { IChamado, TStatusChamado } from '../../../shared/models/chamado.model';
-import { DeviceDetectionService } from '../../../services/device-detection.service';
 
 @Component({
   selector: 'app-card-chamados',
@@ -24,15 +23,11 @@ import { DeviceDetectionService } from '../../../services/device-detection.servi
 ],
 })
 export class CardChamadosComponent {
-  private deviceDetection = inject(DeviceDetectionService);
-
   @Input() chamado!: IChamado;
 
   @Output() edit = new EventEmitter<IChamado>();
   @Output() remove = new EventEmitter<number>();
   @Output() moveToStatus = new EventEmitter<TStatusChamado>();
-
-  public isTouchDevice = this.deviceDetection.isTouchDevice;
 
   private statusLabels: Record<TStatusChamado, string> = {
     'ATENDER': 'Não atendidos',
