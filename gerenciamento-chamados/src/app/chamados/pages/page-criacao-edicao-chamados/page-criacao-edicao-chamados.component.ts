@@ -5,6 +5,7 @@ import { IChamado, TChamadoDraft, TFormMode } from '../../../shared/models/chama
 import { ChamadosMockService } from '../../../services/chamados-mock.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
+import { ToastService } from '../../../shared/components/toast/toast.service';
 
 @Component({
   selector: 'app-page-criacao-edicao-chamados',
@@ -26,10 +27,11 @@ export class PageCriacaoEdicaoChamadosComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private chamadosService: ChamadosMockService,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private toastService: ToastService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
@@ -38,18 +40,19 @@ export class PageCriacaoEdicaoChamadosComponent implements OnInit {
     }
   }
 
-  onSubmit(chamado: TChamadoDraft): void {
-
+  public onSubmit(chamado: TChamadoDraft): void {
     if (this.mode === 'CREATE') {
       this.chamadosService.create(chamado);
+      this.toastService.success('Chamado criado com sucesso!');
     } else if (this.mode === 'EDIT' && this.chamadoInicial) {
       this.chamadosService.update(this.chamadoInicial.id, chamado);
+      this.toastService.success('Chamado atualizado com sucesso!');
     }
 
     this.voltarParaListagem();
   }
 
-  onCancel(): void {
+  public onCancel(): void {
     if (this.formComponent.isFormDirty()) {
       this.confirmDialogService.confirm({
         header: 'Descartar preenchimento?',

@@ -7,7 +7,7 @@ import { ConfirmationService } from 'primeng/api';
 export class ConfirmDialogService {
   constructor(private confirmationService: ConfirmationService) {}
 
-  confirm(options: {
+  public confirm(options: {
     header: string;
     message: string;
     acceptLabel?: string;

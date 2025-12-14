@@ -8,6 +8,7 @@ import { CardChamadosComponent } from '../../components/card-chamados/card-chama
 import { ChamadosMockService } from '../../../services/chamados-mock.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
+import { ToastService } from '../../../shared/components/toast/toast.service';
 
 @Component({
   selector: 'app-page-gerenciamento-chamados',
@@ -26,22 +27,23 @@ export class PageGerenciamentoChamadosComponent {
   constructor(
     private router: Router,
     private chamadosService: ChamadosMockService,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private toastService: ToastService
   ) {}
 
   chamadosNaoAtendidos = computed(() => this.chamadosService.byStatus('ATENDER'));
   chamadosEmAndamento = computed(() => this.chamadosService.byStatus('ANDAMENTO'));
   chamadosFinalizados = computed(() => this.chamadosService.byStatus('FINALIZADO'));
 
-  criarNovoChamado(): void {
+  public criarNovoChamado(): void {
     this.router.navigate(['/chamados/novo']);
   }
 
-  editarChamado(chamado: IChamado): void {
+  public editarChamado(chamado: IChamado): void {
     this.router.navigate(['/chamados', chamado.id, 'editar']);
   }
 
-  removerChamado(id: number): void {
+  public removerChamado(id: number): void {
     this.confirmDialogService.confirm({
       header: 'Excluir chamado?',
       message: 'Tem certeza que deseja excluir este chamado?',
@@ -49,6 +51,7 @@ export class PageGerenciamentoChamadosComponent {
       rejectLabel: 'Cancelar',
       onAccept: () => {
         this.chamadosService.remove(id);
+        this.toastService.success('Chamado excluído com sucesso!');
       }
     });
   }
