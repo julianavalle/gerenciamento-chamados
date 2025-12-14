@@ -59,7 +59,7 @@ export class FormChamadosComponent implements OnChanges {
       this.chamadoForm.reset({
         titulo: '',
         descricao: '',
-        categoria: 'Geral',
+        categoria: '',
         status: 'ATENDER',
       });
     }
