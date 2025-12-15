@@ -2,6 +2,31 @@
 
 <div class="page-chamados min-h-screen flex flex-col">
 
+  <div class="px-6 pt-4">
+    <div class="flex flex-col sm:flex-row gap-3 sm:items-center mx-auto w-full">
+      <p-iconField iconPosition="left" class="w-full sm:flex-1">
+        <p-inputIcon class="pi pi-search" />
+        <input
+          pInputText
+          class="w-full"
+          placeholder="Buscar por título"
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)"
+        />
+      </p-iconField>
+
+      <p-select
+        class="w-full sm:w-64"
+        [options]="categoryOptions()"
+        placeholder="Categoria"
+        [showClear]="true"
+        appendTo="body"
+        [ngModel]="selectedCategory()"
+        (ngModelChange)="selectedCategory.set($event)"
+      />
+    </div>
+  </div>
+
   <app-button
     label="Novo chamado"
     icon="pi pi-plus"

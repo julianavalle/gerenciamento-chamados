@@ -1,5 +1,5 @@
 import { IChamado, TStatusChamado } from '../../../shared/models/chamado.model';
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
@@ -9,7 +9,11 @@ import { ChamadosMockService } from '../../../services/chamados-mock.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from '../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { ToastService } from '../../../shared/components/toast/toast.service';
-
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 @Component({
   selector: 'app-page-gerenciamento-chamados',
   templateUrl: './page-gerenciamento-chamados.component.html',
@@ -17,10 +21,15 @@ import { ToastService } from '../../../shared/components/toast/toast.service';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    InputTextModule,
+    SelectModule,
     ButtonComponent,
     BlocosChamadosComponent,
     CardChamadosComponent,
     ConfirmDialogComponent,
+    IconFieldModule,
+    InputIconModule,
   ],
 })
 export class PageGerenciamentoChamadosComponent {
@@ -31,14 +40,48 @@ export class PageGerenciamentoChamadosComponent {
     private toastService: ToastService
   ) {}
 
+  public searchTerm = signal<string>('');
+  public selectedCategory = signal<string | null>(null);
+
+  public categoryOptions = computed<string[]>(() => {
+    const cats = Array.from(
+      new Set(
+        this.chamadosService
+          .chamados()
+          .map(c => c.categoria)
+          .filter((c): c is string => !!c && c.trim().length > 0)
+      )
+    ).sort((a, b) => a.localeCompare(b));
+
+    return cats;
+  });
+
+  private filteredChamados = computed<IChamado[]>(() => {
+    const chamados = this.chamadosService.chamados();
+    const q = this.searchTerm().trim().toLowerCase();
+    const cat = this.selectedCategory();
+
+    return chamados.filter(c => {
+      if (cat && c.categoria !== cat) return false;
+
+      if (!q) return true;
+
+      const haystack = `${c.id} ${c.titulo ?? ''} ${c.descricao ?? ''} ${c.categoria ?? ''}`.toLowerCase();
+      return haystack.includes(q);
+    });
+  });
+
+
   public chamadosNaoAtendidos = computed(() =>
-    this.chamadosService.chamados().filter(c => c.status === 'ATENDER')
+    this.filteredChamados().filter(c => c.status === 'ATENDER')
   );
+
   public chamadosEmAndamento = computed(() =>
-    this.chamadosService.chamados().filter(c => c.status === 'ANDAMENTO')
+    this.filteredChamados().filter(c => c.status === 'ANDAMENTO')
   );
+
   public chamadosFinalizados = computed(() =>
-    this.chamadosService.chamados().filter(c => c.status === 'FINALIZADO')
+    this.filteredChamados().filter(c => c.status === 'FINALIZADO')
   );
 
   public criarNovoChamado(): void {
