@@ -69,7 +69,7 @@ npm start
 ## 5. Ferramentas de apoio:
 - ChatGPT: usado para tirar dúvidas, auxiliar na abstração do código e correções de pontuais erros/bugs. Todos os trechos que foram utilizados o ChatGPT (IA) estão comentados dentro do código.
 - Documentação do PrimeNG [https://primeng.org/](https://primeng.org/): Exemplificações da utilização dos componentes da biblioteca PrimeNG e como fazer suas importações.
-- Documentação do Tailwind [https://v3.tailwindcss.com/docs/installation](https://v3.tailwindcss.com/docs/installation):
+- Documentação do Tailwind [https://v3.tailwindcss.com/docs/installation](https://v3.tailwindcss.com/docs/installation): Consulta de classes utilitárias para layout e responsividade e suas nomeclaturas.
 
 ## 6. Percentual estimado de código gerado por IA e pelo desenvolvedor:
 Cerca de 80% do código foi gerado pelo desenvolvedor e todos os trechos de código que foram gerados por IA foram revisados e adaptados.
