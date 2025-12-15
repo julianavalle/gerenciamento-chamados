@@ -14,6 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { MessageModule } from 'primeng/message';
+
 @Component({
   selector: 'app-page-gerenciamento-chamados',
   templateUrl: './page-gerenciamento-chamados.component.html',
@@ -30,6 +32,7 @@ import { InputIconModule } from 'primeng/inputicon';
     ConfirmDialogComponent,
     IconFieldModule,
     InputIconModule,
+    MessageModule,
   ],
 })
 export class PageGerenciamentoChamadosComponent {
@@ -71,6 +74,7 @@ export class PageGerenciamentoChamadosComponent {
     });
   });
 
+  public totalFiltrado = computed(() => this.filteredChamados().length);
 
   public chamadosNaoAtendidos = computed(() =>
     this.filteredChamados().filter(c => c.status === 'ATENDER')

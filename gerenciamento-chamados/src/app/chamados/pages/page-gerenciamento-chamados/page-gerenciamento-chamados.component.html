@@ -4,21 +4,31 @@
 
   <div class="px-6 pt-4">
     <div class="flex flex-col sm:flex-row gap-3 sm:items-center mx-auto w-full">
-      <p-iconField iconPosition="left" class="w-full sm:flex-1">
+      <p-iconField class="w-full sm:flex-1">
         <p-inputIcon class="pi pi-search" />
         <input
           pInputText
-          class="w-full"
+          class="w-full pr-10"
           placeholder="Buscar por título"
           [ngModel]="searchTerm()"
           (ngModelChange)="searchTerm.set($event)"
         />
+        <p-inputIcon iconPosition="right" *ngIf="searchTerm()">
+          <button
+            type="button"
+            class="p-input-icon p-link"
+            aria-label="Limpar busca"
+            (click)="searchTerm.set('')"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        </p-inputIcon>
       </p-iconField>
 
       <p-select
         class="w-full sm:w-64"
         [options]="categoryOptions()"
-        placeholder="Categoria"
+        placeholder="Filtrar por categoria"
         [showClear]="true"
         appendTo="body"
         [ngModel]="selectedCategory()"
@@ -26,6 +36,12 @@
       />
     </div>
   </div>
+
+  @if (totalFiltrado() === 0) {
+    <div class="px-6 pt-2">
+      <p-message severity="warn">Nenhum resultado encontrado.</p-message>
+    </div>
+  }
 
   <app-button
     label="Novo chamado"
@@ -87,7 +103,5 @@
       }
     </app-blocos-chamados>
   </div>
-
-
 </div>
 

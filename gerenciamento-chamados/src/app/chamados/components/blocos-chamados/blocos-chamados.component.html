@@ -4,12 +4,13 @@
       <p-accordionheader>
         <div>
           <span class="font-semibold">{{ title }}</span>
-          <p-badge
-            *ngIf="badge !== undefined && badge !== null"
-            [value]="badge"
-            [severity]="severity"
-            class="ml-2"
-          />
+          @if (badge !== undefined && badge !== null) {
+            <p-badge
+              [value]="badge"
+              [severity]="severity"
+              class="ml-2"
+            />
+          }
         </div>
       </p-accordionheader>
 
